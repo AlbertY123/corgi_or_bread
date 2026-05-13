@@ -64,7 +64,8 @@ class ButtBreadClassifier:
         try:
             if not os.path.isfile(self.model_name):
                 self.logger.info("Downloading butt_or_bread model !!")
-                model_weights_request = requests.get(self.model_url, allow_redirects=True)
+                model_weights_request = requests.get(self.model_url, allow_redirects=True, timeout=60)
+                model_weights_request.raise_for_status()
                 with open(self.model_name, "wb") as f:
                     f.write(model_weights_request.content)
                 return True

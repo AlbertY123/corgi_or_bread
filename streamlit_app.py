@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 
 import streamlit as st
 from streamlit.logger import get_logger
@@ -12,7 +13,8 @@ from butt_or_bread.utils import health_check
 st_logger = get_logger(__name__)
 
 # Load Streamlit configuration file
-with open("streamlit_app.json") as cfg_file:
+app_dir = Path(__file__).resolve().parent
+with open(app_dir / "streamlit_app.json", encoding="utf-8") as cfg_file:
     st_app_cfg = json.load(cfg_file)
 
 ui_cfg = st_app_cfg["ui"]
@@ -67,7 +69,12 @@ def get_classifier():
 if __name__ == "__main__":
     image_file, image, prediction = None, None, None
 
-    classifier = get_classifier()
+    try:
+        classifier = get_classifier()
+    except Exception as ex:
+        st.error(f"ERROR: Unable to load model: {ex}")
+        st.stop()
+
     st_logger.info("[INFO] Initialize %s model successfully", "buttbread_resnet152_3.h5", exc_info=0)
     st_logger.info("[DEBUG] %s", health_check(), exc_info=0)
 
@@ -115,8 +122,10 @@ if __name__ == "__main__":
             st_logger.info("[INFO] Predict %s image successfully", image.filename, exc_info=0)
 
         except Exception as ex:
-            st.error("ERROR: Unable to predict {} ({}) !!!".format(image_file.name, image_file.type))
-            st_logger.error("[ERROR] Unable to predict %s (%s) !!!", image_file.name, image_file.type, exc_info=0)
+            image_name = getattr(image_file, "name", str(image_file))
+            image_type = getattr(image_file, "type", "file")
+            st.error("ERROR: Unable to predict {} ({}) !!!".format(image_name, image_type))
+            st_logger.error("[ERROR] Unable to predict %s (%s) !!!", image_name, image_type, exc_info=0)
             image_file, image, prediction = None, None, None
 
     if image is not None or prediction is not None:

@@ -1,3 +1,7 @@
+import os
+import shutil
+from pathlib import Path
+
 import psutil
 
 
@@ -12,7 +16,8 @@ def health_check() -> str:
     Uses the `psutil` module to obtain information about the system resources.
     """
     vm = psutil.virtual_memory()
-    du = psutil.disk_usage("/")
+    disk_root = Path.cwd().drive + os.sep if Path.cwd().drive else os.sep
+    du = shutil.disk_usage(disk_root)
     cpu_percent = psutil.cpu_percent(0.15)
 
     total_memory = vm.total / 1024**3
