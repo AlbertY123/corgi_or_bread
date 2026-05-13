@@ -10,7 +10,7 @@ Requirements:
 1) Clone the repo (if needed) and enter the folder
 
 ```powershell
-git clone https://github.com/Kawaeee/butt_or_bread.git
+git clone https://github.com/AlbertY123/butt_or_bread.git
 cd butt_or_bread
 ```
 
