@@ -11,7 +11,7 @@ Requirements:
 
 ```powershell
 git clone https://github.com/AlbertY123/corgi_or_bread.git
-cd butt_or_bread
+cd corgi_or_bread
 ```
 
 2) Create and activate a virtual environment (skip if `.venv` already exists)
