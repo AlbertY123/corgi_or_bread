@@ -27,8 +27,8 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
 3) Install dependencies
 
 ```powershell
-& .\.venv\Scripts\python.exe -m pip install --upgrade pip
-& .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
 
 4) Run the Streamlit app
