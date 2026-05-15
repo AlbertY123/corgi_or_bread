@@ -34,7 +34,7 @@ python -m pip install -r requirements.txt
 4) Run the Streamlit app
 
 ```powershell
-& .\.venv\Scripts\python.exe -m streamlit run streamlit_app.py
+python -m streamlit run streamlit_app.py
 ```
 
 - On first run Streamlit shows a telemetry onboarding prompt — press Enter to skip.
